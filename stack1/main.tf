@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-west-2"  # Change this to your desired region
+  region = "us-east-1"  # Updated to us-east-1 (N. Virginia) as requested
 }
 
 module "vpc" {
@@ -9,7 +9,7 @@ module "vpc" {
   name = "bedrock-poc-vpc"
   cidr = "10.0.0.0/16"
 
-  azs             = ["us-west-2a", "us-west-2b", "us-west-2c"]
+  azs             = ["us-east-1a", "us-east-1b", "us-east-1c"]
   private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
   public_subnets  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
 
@@ -42,8 +42,12 @@ module "aurora_serverless" {
 
 data "aws_caller_identity" "current" {}
 
+resource "random_id" "bucket_suffix" {
+  byte_length = 4
+}
+
 locals {
-  bucket_name = "bedrock-kb-${data.aws_caller_identity.current.account_id}"
+  bucket_name = "bedrock-kb-${data.aws_caller_identity.current.account_id}-${lower(random_id.bucket_suffix.hex)}"
 }
 
 module "s3_bucket" {

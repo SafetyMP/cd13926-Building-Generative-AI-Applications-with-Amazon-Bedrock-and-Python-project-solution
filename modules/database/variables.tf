@@ -6,7 +6,7 @@ variable "cluster_identifier" {
 variable "engine_version" {
   description = "The engine version to use"
   type        = string
-  default     = "15.4"
+  default     = "16.9"  # Latest stable PostgreSQL version available in us-east-1
 }
 
 variable "database_name" {

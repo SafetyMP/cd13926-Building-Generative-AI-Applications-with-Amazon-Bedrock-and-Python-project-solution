@@ -5,13 +5,13 @@ import json
 # Initialize AWS Bedrock client
 bedrock = boto3.client(
     service_name='bedrock-runtime',
-    region_name='us-west-2'  # Replace with your AWS region
+    region_name='us-east-1'  # Updated to us-east-1
 )
 
 # Initialize Bedrock Knowledge Base client
 bedrock_kb = boto3.client(
     service_name='bedrock-agent-runtime',
-    region_name='us-west-2'  # Replace with your AWS region
+    region_name='us-east-1'  # Updated to us-east-1
 )
 
 def valid_prompt(prompt, model_id):
